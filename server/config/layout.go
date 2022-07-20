@@ -15,7 +15,7 @@ func GetLayouts() map[string]string {
 func AddLayout(name string, serialized string) error {
 	// check if the name is already in use
 	if _, ok := settings.Layouts[name]; ok {
-		return fmt.Errorf("Name '%s' is already in use", name)
+		return fmt.Errorf("name '%s' is already in use", name)
 	}
 
 	settings.Layouts[name] = serialized
@@ -42,7 +42,7 @@ func GetActiveLayout() string {
 func SetActiveLayout(name string) error {
 	// ensure layout exists
 	if _, ok := settings.Layouts[name]; !ok {
-		return fmt.Errorf("Layout '%s' does not exist", name)
+		return fmt.Errorf("layout '%s' does not exist", name)
 	}
 	settings.Layout = name
 	return save()

@@ -17,7 +17,7 @@
           color="grey lighten-1"
         >
           <template v-slot:prepend>
-            <div :class="softcoreStyle">Softcore</div>
+            <div :class="softcoreStyle">Normal</div>
           </template>
           <template v-slot:append>
             <div :class="hardcoreStyle">Hardcore</div>
@@ -36,7 +36,7 @@
       >Achievement Order (Drag to Change)</v-col>
     </v-row>
     <v-list
-      style="max-height: 600px"
+      style="max-height: calc(100vh - 267px);"
       class="overflow-y-auto"
       dense
     >
@@ -57,8 +57,13 @@
             </v-list-item-avatar>
             <v-list-item-content>
               <v-list-item-title>
-                {{ game.achievements[i].Title }}
+                <label>{{ game.achievements[i].Title }}</label>
               </v-list-item-title>
+              <v-list-item-subtitle
+                :title="`${game.achievements[i].Description}`"
+              >
+                <label>{{ game.achievements[i].Description }}</label>
+              </v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
       </draggable>

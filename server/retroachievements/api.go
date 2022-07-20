@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"retro/config"
 	"sort"
+	"strconv"
 
 	"go.uber.org/zap"
 )
@@ -27,6 +28,7 @@ type Game struct {
 	Hardcore     string                 `json:"hardcore"`
 	Achievements map[string]Achievement `json:"achievements"`
 	Order        []string               `json:"order"`
+	DefaultOrder []string               `json:"defaultOrder"`
 }
 
 type Achievement struct {
@@ -151,15 +153,46 @@ func GetGameInformation(l *zap.Logger, username, apikey string) (Game, error) {
 		Hardcore:     container.Hardcore,
 		Achievements: container.Achievements,
 	}
+
+	//Set default order
+	type order struct {
+		ID           int
+		DisplayOrder int
+	}
+
+	var defaultOrder []order
+
+	for _, achievement := range result.Achievements {
+		thisID, _ := strconv.Atoi(achievement.ID)
+		thisDisplayOrder, _ := strconv.Atoi(achievement.DisplayOrder)
+
+		thisOrder := order{
+			ID:           thisID,
+			DisplayOrder: thisDisplayOrder,
+		}
+
+		defaultOrder = append(defaultOrder, thisOrder)
+	}
+
+	//first sort by ID
+	sort.SliceStable(defaultOrder, func(i, j int) bool {
+		return defaultOrder[i].ID < defaultOrder[j].ID
+	})
+	//then sort by display order
+	sort.SliceStable(defaultOrder, func(i, j int) bool {
+		return defaultOrder[i].DisplayOrder < defaultOrder[j].DisplayOrder
+	})
+	//save
+	for _, defOrder := range defaultOrder {
+		result.DefaultOrder = append(result.DefaultOrder, strconv.Itoa(defOrder.ID))
+	}
+
 	// look for a saved game order for achievements
 	if order, ok := config.GetSettings().Orders[result.ID]; ok {
 		result.Order = order
 	} else {
 		// no saved order, sort in display order
-		for _, achievement := range result.Achievements {
-			result.Order = append(result.Order, achievement.ID)
-		}
-		sort.Strings(result.Order)
+		result.Order = result.DefaultOrder
 	}
 	return result, nil
 }

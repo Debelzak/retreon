@@ -4,14 +4,26 @@
       Latest {{ latest.length }} Achievement{{ latest.length === 1 ? '' : 's'}}
     </div>
     <v-row no-gutters justify="center">
-      <v-img
+      <v-tooltip
         v-for="(achievement, i) in latest"
         :key="i"
-        :src="`${base}/Badge/${achievement.BadgeName}.png`"
-        :max-width="settings.iconHeight"
-        :width="settings.iconHeight"
-        class="mr-1 mt-1 elevation-4"
-      ></v-img>
+        top
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-img
+            :src="`${base}/Badge/${achievement.BadgeName}.png`"
+            :max-width="settings.iconHeight"
+            :width="settings.iconHeight"
+            class="mr-1 mt-1 elevation-4"
+            v-bind="attrs"
+            v-on="settings.showTooltips ? on : null"
+          ></v-img>
+        </template>
+        <div>
+          <div class="subtitle-2">{{ achievement.Title }}</div>
+          <div class="caption">{{ achievement.Description }}</div>
+        </div>
+      </v-tooltip>
     </v-row>
   </v-container>
 </template>

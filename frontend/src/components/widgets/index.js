@@ -73,6 +73,12 @@ export default {
     title: 'Recent Unlocks',
     settings: [
       {
+        name: 'showTooltips',
+        title: 'Show Tooltips',
+        type: 'boolean',
+        default: true,
+      },
+      {
         name: 'count',
         title: 'Count',
         type: 'slider',
@@ -94,6 +100,12 @@ export default {
     name: 'widget-locked',
     title: 'Next Locked Achievements',
     settings: [
+      {
+        name: 'showTooltips',
+        title: 'Show Tooltips',
+        type: 'boolean',
+        default: true,
+      },
       {
         name: 'count',
         title: 'Count',
@@ -145,6 +157,12 @@ export default {
         title: 'Show Test Overlay',
         type: 'boolean',
         default: false,
+      },
+      {
+        name: 'playUnlockedSound',
+        title: 'Play Sound',
+        type: 'boolean',
+        default: true,
       },
       {
         name: 'shakeType',

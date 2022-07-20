@@ -10,7 +10,6 @@ import (
 	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 
-	"github.com/pkg/browser"
 	"go.uber.org/zap"
 )
 
@@ -73,8 +72,7 @@ func main() {
 	// wait a second then open frontend
 	go func() {
 		time.Sleep(1 * time.Second)
-		logger.Info("Loading UI (http://localhost:3000/)")
-		browser.OpenURL("http://localhost:3000/")
+		logger.Info("Starting server at http://localhost:3000/")
 	}()
 
 	// start the server itself

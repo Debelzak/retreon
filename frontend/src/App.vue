@@ -34,6 +34,11 @@
             </v-card>
           </v-col>
           <v-col cols="auto">
+            <v-card width="400" min-height="500">
+              <achievements></achievements>
+            </v-card>
+          </v-col>
+          <v-col cols="auto">
             <v-sheet
               v-if="layout"
               style="position: fixed"
@@ -68,6 +73,8 @@
   import Game from '@/components/tabs/Game.vue';
   import Settings from '@/components/tabs/Settings.vue';
   import Profiles from '@/components/tabs/Profiles.vue';
+  // Achievement list
+  import Achievements from '@/components/tabs/Achievements.vue';
   // Widget components
   import WidgetTitle from '@/components/widgets/Title.vue';
   import WidgetText from '@/components/widgets/Text.vue';
@@ -98,6 +105,8 @@
       Game,
       Settings,
       Profiles,
+      // Achievement list
+      Achievements,
       // widgets
       WidgetTitle,
       WidgetText,

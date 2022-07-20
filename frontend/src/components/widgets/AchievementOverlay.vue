@@ -24,10 +24,10 @@
           </v-col>
         </v-row>
         <v-row justify="center">
-          <div class="subtitle-1 px-3 font-weight-bold text-center mt-5">{{ current.Title }}</div>
+          <div class="title px-3 font-weight-bold text-center mt-5">{{ current.Title }}</div>
         </v-row>
         <v-row justify="center">
-          <div class="caption font-weight-light text-center px-2 mt-4">{{ current.Description }}</div>
+          <div class="subtitle-1 font-weight-light text-center px-2 mt-4">{{ current.Description }}</div>
         </v-row>
         <v-row justify="center">
           <div
@@ -50,10 +50,12 @@ export default {
   data: () => ({
     queue: [],
     current: null,
+    disableReload: false,
   }),
   
   computed: {
     ...mapState('game', ['game', 'gameMode']),
+    
   },
 
   methods: {
@@ -63,14 +65,35 @@ export default {
         return;
       }
 
+      this.preventReload();
+      this.playUnlockedSound();
       this.current = this.game.achievements[this.queue.shift()];
       setTimeout(this.showNext, 5000);
+      setTimeout(this.enableReload, 5000);
     },
+
+    playUnlockedSound() {
+      if(this.settings.playUnlockedSound) {
+        var mp3Url = require('@/assets/sound/AchievementUnlocked.mp3');
+        var audio = new Audio(mp3Url);
+  
+        audio.cloneNode(true).play();
+      }
+    },
+
+    enableReload() {
+      this.disableReload = false;
+    },
+
+    preventReload() {
+      this.disableReload = true;
+    },
+
   },
 
   watch: {
     game: function(newValue, oldValue) {
-      if (!oldValue || oldValue.id !== newValue.id) return;
+      if (!oldValue || oldValue.id !== newValue.id || this.disableReload === true) return;
       const unlocks = Object.values(oldValue.achievements)
         .filter((achievement) => {
           return !achievement[this.gameMode]
@@ -84,6 +107,7 @@ export default {
 
     'settings.testAchieve': function(newValue) {
       if (newValue) {
+        this.playUnlockedSound();
         this.current = {
           Title: "i am glaceon",
           Description: "This is a test achievement for testing settings",
