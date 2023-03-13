@@ -1,14 +1,14 @@
 <template>
   <v-app>
-    <v-content>
+    <v-main>
       <v-container fluid>
         <v-row>
           <v-col cols="auto">
             <v-card width="400" min-height="500">
               <v-tabs grow v-model="tab">
                 <v-tab key="status">Status</v-tab>
-                <v-tab key="game">Game</v-tab>
-                <v-tab key="settings">Settings</v-tab>
+                <v-tab key="game">Sorting</v-tab>
+                <v-tab key="settings">Layout</v-tab>
                 <v-tab key="profiles">Profile</v-tab>
               </v-tabs>
               <v-tabs-items v-model="tab">
@@ -34,7 +34,7 @@
             </v-card>
           </v-col>
           <v-col cols="auto">
-            <v-card width="400" min-height="500">
+            <v-card width="500" min-height="500">
               <achievements></achievements>
             </v-card>
           </v-col>
@@ -61,10 +61,12 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
-
+<style>
+@import './style/achievement-glow.css';
+</style>
 <script>
   import { mapState, mapActions } from 'vuex';
 
@@ -93,12 +95,13 @@
   import DuplicateLayout from '@/components/dialogs/DuplicateLayout.vue';
   import ChangeLayout from '@/components/dialogs/ChangeLayout.vue';
   import WidgetSettings from '@/components/dialogs/WidgetSettings.vue';
+  import Vue from 'vue';
 
   export default {
     data: () => ({
       tab: 'status',
     }),
-
+    
     components: {
       // tabs
       Status,

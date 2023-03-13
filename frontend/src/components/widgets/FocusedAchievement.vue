@@ -4,37 +4,41 @@
       <div class="overline mb-1">
         No Remaining Goals
       </div>
-      <v-img
-        :src="`http://i.retroachievements.org.s3.amazonaws.com${this.game.icon}`"
-        max-width="96"
-        max-height="96"
-        class="elevation-8 float-left mr-4"
-      ></v-img>
-      <div>
-        <div class="subtitle-1 font-weight-bold text-center">SET MASTERED!</div>
-        <v-divider></v-divider>
-        <div style="overflow:hidden" class="my-3">
-          <div
-            :class="{
-              'font-weight-light': true,
-              'body-2': true,
-              'text-no-wrap': settings.marquee,
-            }"
-            :id="settings.marquee ? 'marquee' : ''"
-          >Congratulations!<br>You achieved every challenge of this game.<br></div>
+      <v-overlay absolute opacity="0.9">
+        <div class="elevation-8 float-left mr-4">
+          <div class="AchievementIconWrapper LegendaryAchievement"><div class="AchievementIconGlowContainerRoot"><div class="AchievementIconGlowContainer"><div class="AchievementIconGlow"></div></div></div>
+              <div class="achievementIcon">
+                <img :src="`http://i.retroachievements.org.s3.amazonaws.com${this.game.icon}`">
+              </div>
+          </div>
         </div>
-      </div>
+        <div>
+          <div class="subtitle-1 font-weight-bold text-center">GAME MASTERED!</div>
+          <v-divider></v-divider>
+          <div style="overflow:hidden" class="my-3">
+            <div
+              :class="{
+                'font-weight-light': true,
+                'body-2': true,
+                'text-no-wrap': settings.marquee,
+              }"
+              :id="settings.marquee ? 'marquee' : ''"
+            >Congratulations!<br>You got every achievement of this game.<br></div>
+          </div>
+        </div>
+      </v-overlay>
     </div>
     <div v-else>
       <div class="overline mb-1">
         Current Goal - {{ focused.Points }} ({{ focused.TrueRatio }}) points
       </div>
-      <v-img
-        :src="`http://i.retroachievements.org.s3.amazonaws.com/Badge/${focused.BadgeName}.png`"
-        max-width="96"
-        max-height="96"
-        class="elevation-8 float-left mr-4"
-      ></v-img>
+      <div class="elevation-8 float-left mr-4">
+        <div class="AchievementIconWrapper" v-bind:class="(hardcorePercent < 5) ? 'LegendaryAchievement' : ''"><div class="AchievementIconGlowContainerRoot"><div class="AchievementIconGlowContainer"><div class="AchievementIconGlow"></div></div></div>
+            <div class="achievementIcon">
+              <img :src="`http://i.retroachievements.org.s3.amazonaws.com/Badge/${focused.BadgeName}.png`">
+            </div>
+        </div>
+      </div>
       <div>
         <div class="subtitle-1 font-weight-bold text-center">
           {{ focused.Title }}

@@ -73,7 +73,7 @@ func GetLastGame(l *zap.Logger, username, apikey string) (string, error) {
 	}
 
 	var container []struct {
-		GameID string `json:"GameID"`
+		GameID int `json:"GameID"`
 	}
 	if err := json.Unmarshal(responseBody, &container); err != nil {
 		l.Error("Error parsing payload of recently played games",
@@ -83,7 +83,7 @@ func GetLastGame(l *zap.Logger, username, apikey string) (string, error) {
 		return "", err
 	}
 
-	return container[0].GameID, nil
+	return strconv.Itoa(container[0].GameID), nil
 }
 
 func GetGameInformation(l *zap.Logger, username, apikey string) (Game, error) {

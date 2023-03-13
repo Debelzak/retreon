@@ -35,37 +35,23 @@
         class="font-weight-light"
       >Achievement Order (Drag to Change)</v-col>
     </v-row>
-    <v-list
-      style="max-height: calc(100vh - 267px);"
-      class="overflow-y-auto"
-      dense
-    >
+
+    <v-list style="display: table-row;">
       <draggable
         class="list-group"
         v-model="list"
         @change="checkChange"
       >
-          <v-list-item
-            v-for="i in list"
-            :key="i"
-          >
-            <v-list-item-avatar
-              tile
-              size="30"
-            >
-              <img :src="`http://i.retroachievements.org.s3.amazonaws.com/Badge/${game.achievements[i].BadgeName}.png`">
-            </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title>
-                <label>{{ game.achievements[i].Title }}</label>
-              </v-list-item-title>
-              <v-list-item-subtitle
-                :title="`${game.achievements[i].Description}`"
-              >
-                <label>{{ game.achievements[i].Description }}</label>
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
+        <v-list-item
+          v-for="(i, index) in list"
+          :key="i"
+          style="float: left; padding: 0px;"
+        >
+          <v-list-item-avatar size="48" tile style="margin: 6px; cursor: move">
+            <label style="width: 20px; height: 20px; position: absolute; top: 0px; left: 0px; background-color: grey; border-radius: 2px;"><b>{{ index+1 }}</b></label>
+            <img :src="`http://i.retroachievements.org.s3.amazonaws.com/Badge/${game.achievements[i].BadgeName}.png`">
+          </v-list-item-avatar>
+        </v-list-item>
       </draggable>
     </v-list>
   </v-container>

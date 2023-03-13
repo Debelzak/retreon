@@ -1,5 +1,6 @@
 #!/bin/bash
 export NODE_ENV=production
+export NODE_OPTIONS=--openssl-legacy-provider
 rm -rf build
 mkdir -p build/ui
 

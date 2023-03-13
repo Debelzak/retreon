@@ -1,9 +1,9 @@
 <template>
-  <v-container class="py-0">
+  <v-container>
     <v-row>
       <v-progress-linear
         v-if="settings.showCount"
-        v-model="count.percent"
+        :value="count.percent"
         height="20"
         class="elevation-8"
         :striped="count.locked === 0"
@@ -16,7 +16,7 @@
       </v-progress-linear>
       <v-progress-linear
         v-if="settings.showPoints"
-        v-model="points.percent"
+        :value="points.percent"
         height="20"
         class="elevation-8 mt-1"
         :striped="points.locked === 0"
@@ -29,7 +29,7 @@
       </v-progress-linear>
       <v-progress-linear
         v-if="settings.showRatio"
-        v-model="ratio.percent"
+        :value="ratio.percent"
         height="20"
         class="elevation-8 mt-1"
         :striped="ratio.locked === 0"
@@ -38,7 +38,7 @@
         <span
           class="font-weight-bold overline"
           style="text-shadow: 0 0 3px black"
-        >retro ratio - {{ ratio.unlocked }} / {{ ratio.total }} ({{ ratio.percent }}%)</span>
+        >retro points - {{ ratio.unlocked }} / {{ ratio.total }} ({{ ratio.percent }}%)</span>
       </v-progress-linear>
     </v-row>
   </v-container>
